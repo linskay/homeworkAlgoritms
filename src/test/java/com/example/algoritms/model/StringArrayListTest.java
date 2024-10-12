@@ -65,9 +65,9 @@ class StringArrayListTest {
     @Test
     @DisplayName("Положительный тест на удаление, выбрасывание исключения")
     void testRemoveByItem() {
-   arrayList.add("Привет");
-      arrayList.add("Мир");
-      arrayList.add("Привет");
+        arrayList.add("Привет");
+        arrayList.add("Мир");
+        arrayList.add("Привет");
 
         assertEquals("Мир", arrayList.remove("Мир"));
         assertEquals(2, arrayList.size());
@@ -97,7 +97,7 @@ class StringArrayListTest {
     @Test
     @DisplayName("Положительный тест на возвращение индекса и -1")
     void testIndexOf() {
-       arrayList.add("Привет");
+        arrayList.add("Привет");
         arrayList.add("Мир");
         arrayList.add("Привет");
 
@@ -198,7 +198,7 @@ class StringArrayListTest {
     @Test
     @DisplayName("Положительный тест на выбрасывание исключений, если массив выходит за рамки фактического")
     void testGet() {
-       arrayList.add("Привет");
+        arrayList.add("Привет");
         arrayList.add("Мир");
 
         assertEquals("Привет", arrayList.get(0));
