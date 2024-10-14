@@ -1,6 +1,7 @@
 package com.example.algoritms.model;
 
-import org.junit.jupiter.api.BeforeEach;
+import com.example.algoritms.exception.IllegalArgumentException;
+import com.example.algoritms.exception.IndexOutOfBoundsException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -8,253 +9,297 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IntegerArrayListTest {
 
-    private IntegerArrayList integerArrayList;
-
-    @BeforeEach
-    void setUp() {
-        integerArrayList = new IntegerArrayList();
-    }
-
     @Test
-    @DisplayName("Положительный тест на добавление элемента")
-    void testAddPositive() {
-        integerArrayList.add(10);
-        assertEquals(1, integerArrayList.size());
-        assertEquals(10, integerArrayList.get(0));
-    }
-
-    @Test
-    @DisplayName("Отрицательный тест на добавление элемента с выходом за пределы списка")
-    void testAddNegativeIndexOutOfBounds() {
-        assertThrows(com.example.algoritms.exceotion.IndexOutOfBoundsException.class, () -> integerArrayList.add(1, 10));
-    }
-
-    @Test
-    @DisplayName("Положительный тест на добавление элемента по индексу")
-    void testAddByIndexPositive() {
-        integerArrayList.add(10);
-        integerArrayList.add(0, 5);
-        assertEquals(2, integerArrayList.size());
-        assertEquals(5, integerArrayList.get(0));
-        assertEquals(10, integerArrayList.get(1));
-    }
-
-    @Test
-    @DisplayName("Положительный тест на установку элемента")
-    void testSetPositive() {
-        integerArrayList.add(10);
-        assertEquals(10, integerArrayList.set(0, 20));
-        assertEquals(20, integerArrayList.get(0));
-    }
-
-    @Test
-    @DisplayName("Отрицательный тест на установку элемента с выходом за пределы списка")
-    void testSetNegativeIndexOutOfBounds() {
-        assertThrows(IndexOutOfBoundsException.class, () -> integerArrayList.set(1, 20));
-    }
-
-    @Test
-    @DisplayName("Положительный тест на удаление элемента по значению")
-    void testRemoveByItemPositive() {
-        integerArrayList.add(1);
-        integerArrayList.add(20);
-        assertEquals(20, integerArrayList.remove(1));
-        assertEquals(1, integerArrayList.size());
-    }
-
-    @Test
-    @DisplayName("Отрицательный тест на удаление несуществующего элемента по значению")
-    void testRemoveByItemNegative() {
-        integerArrayList.add(10);
-        assertThrows(com.example.algoritms.exceotion.IndexOutOfBoundsException.class,() -> integerArrayList.remove(20));
-        assertEquals(1, integerArrayList.size());
-    }
-
-    @Test
-    @DisplayName("Положительный тест на удаление элемента по индексу")
-    void testRemoveByIndexPositive() {
-        integerArrayList.add(10);
-        integerArrayList.add(20);
-        assertEquals(20, integerArrayList.remove(1));
-        assertEquals(1, integerArrayList.size());
-    }
-
-    @Test
-    @DisplayName("Отрицательный тест на удаление элемента по индексу с выходом за границы")
-    void testRemoveByIndexNegative() {
-        integerArrayList.add(10);
-        assertThrows(com.example.algoritms.exceotion.IndexOutOfBoundsException.class, () -> integerArrayList.remove(2));
-    }
-
-    @Test
-    @DisplayName("Положительный тест на проверку наличия элемента")
-    void testContainsPositive() {
-        integerArrayList.add(10);
-        integerArrayList.add(20);
-        assertTrue(integerArrayList.contains(10));
-    }
-
-    @Test
-    @DisplayName("Отрицательный тест на проверку наличия несуществующего элемента")
-    void testContainsNegative() {
-        integerArrayList.add(10);
-        assertFalse(integerArrayList.contains(30));
-    }
-
-    @Test
-    @DisplayName("Положительный тест на поиск индекса элемента")
-    void testIndexOfPositive() {
-        integerArrayList.add(10);
-        integerArrayList.add(20);
-        assertEquals(0, integerArrayList.indexOf(10));
-    }
-
-    @Test
-    @DisplayName("Отрицательный тест на поиск несуществующего элемента")
-    void testIndexOfNegative() {
-        integerArrayList.add(10);
-        assertEquals(-1, integerArrayList.indexOf(30));
-    }
-
-    @Test
-    @DisplayName("Положительный тест на поиск индекса последнего вхождения элемента")
-    void testLastIndexOfPositive() {
-        integerArrayList.add(10);
-        integerArrayList.add(20);
-        integerArrayList.add(10);
-        assertEquals(2, integerArrayList.lastIndexOf(10));
-    }
-
-    @Test
-    @DisplayName("Отрицательный тест на поиск несуществующего элемента")
-    void testLastIndexOfNegative() {
-        integerArrayList.add(10);
-        assertEquals(-1, integerArrayList.lastIndexOf(30));
-    }
-
-    @Test
-    @DisplayName("Положительный тест на получение элемента по индексу")
-    void testGetPositive() {
-        integerArrayList.add(10);
-        integerArrayList.add(20);
-        assertEquals(10, integerArrayList.get(0));
-    }
-
-    @Test
-    @DisplayName("Отрицательный тест на получение элемента по индексу с выходом за границы")
-    void testGetNegativeIndexOutOfBounds() {
-        integerArrayList.add(10);
-        assertThrows(com.example.algoritms.exceotion.IndexOutOfBoundsException.class,
-                () -> integerArrayList.get(2));
-    }
-
-    @Test
-    @DisplayName("Положительный тест на сравнение списков")
-    void testEqualsPositive() {
-        integerArrayList.add(10);
-        integerArrayList.add(20);
-
-        IntegerArrayList otherList = new IntegerArrayList();
-        otherList.add(10);
-        otherList.add(20);
-
-        assertTrue(integerArrayList.equals(otherList));
-    }
-
-    @Test
-    @DisplayName("Отрицательный тест на сравнение списков разной длины")
-    void testEqualsNegativeDifferentSize() {
-        integerArrayList.add(10);
-
-        IntegerArrayList otherList = new IntegerArrayList();
-        otherList.add(10);
-        otherList.add(20);
-
-        assertFalse(integerArrayList.equals(otherList));
-    }
-
-    @Test
-    @DisplayName("Отрицательный тест на сравнение списков с разными элементами")
-    void testEqualsNegativeDifferentElements() {
-        integerArrayList.add(10);
-
-        IntegerArrayList otherList = new IntegerArrayList();
-        otherList.add(30);
-
-        assertFalse(integerArrayList.equals(otherList));
-    }
-
-    @Test
-    @DisplayName("Отрицательный тест на сравнение с null")
-    void testEqualsNegativeNull() {
-        assertThrows(com.example.algoritms.exceotion.IllegalArgumentException.class,
-                () -> integerArrayList.equals(null));
-    }
-
-    @Test
-    @DisplayName("Положительный тест на получение размера списка")
-    void testSizePositive() {
-        integerArrayList.add(10);
-        integerArrayList.add(20);
-        assertEquals(2, integerArrayList.size());
-    }
-
-    @Test
-    @DisplayName(
-            "Положительный тест на проверку пустого списка")
-    void testIsEmptyPositive() {
-        assertTrue(integerArrayList.isEmpty());
-    }
-
-    @Test
-    @DisplayName("Отрицательный тест на проверку непустого списка")
-    void testIsEmptyNegative() {
-        integerArrayList.add(10);
-        assertFalse(integerArrayList.isEmpty());
-    }
-
-    @Test
-    @DisplayName("Положительный тест на очистку списка")
-    void testClearPositive() {
-        integerArrayList.add(10);
-        integerArrayList.add(20);
-        integerArrayList.clear();
-        assertTrue(integerArrayList.isEmpty());
-    }
-
-    @Test
-    @DisplayName("Положительный тест на создание массива из элементов списка")
-    void testToArrayPositive() {
-        integerArrayList.add(10);
-        integerArrayList.add(20);
-        Integer[] array = integerArrayList.toArray();
-        assertEquals(2, array.length);
-    }
-
-    @Test
-    @DisplayName("Положительный тест на сортировку списка")
-    void testSortPositive() {
-        integerArrayList.add(20);
-        integerArrayList.add(10);
-        integerArrayList.add(30);
-        integerArrayList.sort();
-        assertEquals(10, integerArrayList.get(0));
-        assertEquals(20, integerArrayList.get(1));
-        assertEquals(30, integerArrayList.get(2));
-    }
-
-    @Test
-    @DisplayName("Положительный тест на время выполнения сортировки")
-    void testSortPerformance() {
-        Integer[] array = IntegerArrayList.generateRandomArray(100000);
+    @DisplayName("Добавление элемента в пустой список")
+    void addElementToEmptyList() {
         IntegerArrayList list = new IntegerArrayList();
-        for (Integer item : array) {
-            list.add(item);
-        }
-        long start = System.currentTimeMillis();
+        Integer addedItem = list.add(5);
+        assertEquals(5, addedItem);
+        assertEquals(1, list.size());
+        assertEquals(5, list.get(0));
+    }
+
+    @Test
+    @DisplayName("Добавление элемента в список с существующими элементами")
+    void addElementToListWithExistingElements() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        list.add(2);
+        Integer addedItem = list.add(3);
+        assertEquals(3, addedItem);
+        assertEquals(3, list.size());
+        assertEquals(3, list.get(2));
+    }
+
+    @Test
+    @DisplayName("Добавление элемента по индексу в пустой список")
+    void addElementByIndexToEmptyList() {
+        IntegerArrayList list = new IntegerArrayList();
+        Integer addedItem = list.add(0, 5);
+        assertEquals(5, addedItem);
+        assertEquals(1, list.size());
+        assertEquals(5, list.get(0));
+    }
+
+    @Test
+    @DisplayName("Добавление элемента по индексу в список с существующими элементами")
+    void addElementByIndexToListWithExistingElements() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        list.add(2);
+        Integer addedItem = list.add(1, 3);
+        assertEquals(3, addedItem);
+        assertEquals(3, list.size());
+        assertEquals(3, list.get(1));
+        assertEquals(2, list.get(2));
+    }
+
+    @Test
+    @DisplayName("Добавление элемента по индексу, выходящему за границы списка")
+    void addElementByIndexOutOfBounds() {
+        IntegerArrayList list = new IntegerArrayList();
+        assertThrows(IndexOutOfBoundsException.class, () -> list.add(3, 5));
+    }
+
+    @Test
+    @DisplayName("Изменение элемента по индексу")
+    void setElementByIndex() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        list.add(2);
+        Integer oldValue = list.set(1, 3);
+        assertEquals(2, oldValue);
+        assertEquals(3, list.get(1));
+        assertEquals(2, list.size());
+    }
+
+    @Test
+    @DisplayName("Изменение элемента по индексу, выходящему за границы списка")
+    void setElementByIndexOutOfBounds() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        assertThrows(IndexOutOfBoundsException.class, () -> list.set(2, 3));
+    }
+
+    @Test
+    @DisplayName("Удаление элемента по значению")
+    void removeElementByValue() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        list.add(2);
+        list.add(1);
+        Integer removedItem = list.remove(1);
+        assertEquals(2, removedItem);
+        assertEquals(2, list.size());
+        assertEquals(1, list.get(0));
+        assertEquals(1, list.get(1));
+    }
+
+    @Test
+    @DisplayName("Удаление несуществующего элемента по значению")
+    void removeNonExistingElementByValue() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        list.add(2);
+        assertThrows(IndexOutOfBoundsException.class, () ->  list.remove(3));
+        assertEquals(2, list.size());
+    }
+
+    @Test
+    @DisplayName("Удаление элемента по индексу")
+    void removeElementByIndex() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        Integer removedItem = list.remove(1);
+        assertEquals(2, removedItem);
+        assertEquals(2, list.size());
+        assertEquals(1, list.get(0));
+        assertEquals(3, list.get(1));
+    }
+
+    @Test
+    @DisplayName("Удаление элемента по индексу, выходящему за границы списка")
+    void removeElementByIndexOutOfBounds() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        list.add(2);
+        assertThrows(IndexOutOfBoundsException.class, () -> list.remove(3));
+    }
+
+    @Test
+    @DisplayName("Получение индекса элемента")
+    void indexOfElement() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        list.add(2);
+        list.add(1);
+        int index = list.indexOf(2);
+        assertEquals(1, index);
+    }
+
+    @Test
+    @DisplayName("Получение индекса несуществующего элемента")
+    void indexOfNonExistingElement() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        list.add(2);
+        int index = list.indexOf(3);
+        assertEquals(-1, index);
+    }
+
+    @Test
+    @DisplayName("Получение индекса последнего вхождения элемента")
+    void lastIndexOfElement() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        list.add(2);
+        list.add(1);
+        int index = list.lastIndexOf(1);
+        assertEquals(2, index);
+    }
+
+    @Test
+    @DisplayName("Получение индекса последнего вхождения несуществующего элемента")
+    void lastIndexOfNonExistingElement() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        list.add(2);
+        int index = list.lastIndexOf(3);
+        assertEquals(-1, index);
+    }
+
+    @Test
+    @DisplayName("Получение элемента по индексу")
+    void getElementByIndex() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        list.add(2);
+        Integer element = list.get(1);
+        assertEquals(2, element);
+    }
+
+    @Test
+    @DisplayName("Получение элемента по индексу, выходящему за границы списка")
+    void getElementByIndexOutOfBounds() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        list.add(2);
+        assertThrows(IndexOutOfBoundsException.class, () -> list.get(3));
+    }
+
+    @Test
+    @DisplayName("Сравнение двух списков с одинаковым содержимым")
+    void equalsWithSameContent() {
+        IntegerArrayList list1 = new IntegerArrayList();
+        list1.add(1);
+        list1.add(2);
+        list1.add(3);
+
+        IntegerArrayList list2 = new IntegerArrayList();
+        list2.add(1);
+        list2.add(2);
+        list2.add(3);
+
+        assertEquals(list1, list2);
+    }
+
+    @Test
+    @DisplayName("Сравнение двух списков с разным содержимым")
+    void equalsWithDifferentContent() {
+        IntegerArrayList list1 = new IntegerArrayList();
+        list1.add(1);
+        list1.add(2);
+        list1.add(3);
+
+        IntegerArrayList list2 = new IntegerArrayList();
+        list2.add(1);
+        list2.add(2);
+        list2.add(4);
+
+        assertNotEquals(list1, list2);
+    }
+
+    @Test
+    @DisplayName("Сравнение списка с null")
+    void equalsWithNull() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+
+        assertThrows(IllegalArgumentException.class, () -> list.equals(null));
+    }
+
+    @Test
+    @DisplayName("Сравнение списка с объектом другого типа")
+    void equalsWithDifferentType() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+
+        assertThrows(IllegalArgumentException.class, () -> list.equals("test"));
+    }
+
+    @Test
+    @DisplayName("Проверка размера списка")
+    void size() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        assertEquals(3, list.size());
+    }
+
+    @Test
+    @DisplayName("Проверка пустого списка")
+    void isEmpty() {
+        IntegerArrayList list = new IntegerArrayList();
+        assertTrue(list.isEmpty());
+    }
+
+    @Test
+    @DisplayName("Проверка непустого списка")
+    void isNotEmpty() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        assertFalse(list.isEmpty());
+    }
+
+    @Test
+    @DisplayName("Очистка списка")
+    void clear() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        list.add(2);
+        list.clear();
+        assertEquals(0, list.size());
+        assertTrue(list.isEmpty());
+    }
+
+    @Test
+    @DisplayName("Преобразование списка в массив")
+    void toArray() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        Integer[] array = list.toArray();
+        assertArrayEquals(new Integer[]{1, 2, 3}, array);
+    }
+
+    @Test
+    @DisplayName("Сортировка списка")
+    void sort() {
+        IntegerArrayList list = new IntegerArrayList();
+        list.add(3);
+        list.add(1);
+        list.add(2);
         list.sort();
-        long end = System.currentTimeMillis();
-        System.out.println("Время сортировки: " + (end - start) + " мс");
+        assertEquals(1, list.get(0));
+        assertEquals(2, list.get(1));
+        assertEquals(3, list.get(2));
     }
 }
-

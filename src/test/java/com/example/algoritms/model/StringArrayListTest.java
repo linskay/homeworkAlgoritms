@@ -45,7 +45,7 @@ class StringArrayListTest {
         assertEquals("Мир", arrayList.get(1));
         assertEquals("Привет", arrayList.get(2));
 
-        assertThrows(com.example.algoritms.exceotion.IndexOutOfBoundsException.class, () -> arrayList.add(4, "Test"));
+        assertThrows(com.example.algoritms.exception.IndexOutOfBoundsException.class, () -> arrayList.add(4, "Test"));
     }
 
     @Test
@@ -59,7 +59,7 @@ class StringArrayListTest {
         assertEquals("Привет", arrayList.get(0));
         assertEquals("Java", arrayList.get(1));
 
-        assertThrows(com.example.algoritms.exceotion.IndexOutOfBoundsException.class, () -> arrayList.set(3, "Test"));
+        assertThrows(com.example.algoritms.exception.IndexOutOfBoundsException.class, () -> arrayList.set(3, "Test"));
     }
 
     @Test
@@ -78,7 +78,7 @@ class StringArrayListTest {
         assertEquals(1, arrayList.size());
         assertEquals("Привет", arrayList.get(0));
 
-        assertThrows(com.example.algoritms.exceotion.IndexOutOfBoundsException.class, () -> arrayList.remove("Java"));
+        assertThrows(com.example.algoritms.exception.IndexOutOfBoundsException.class, () -> arrayList.remove("Java"));
     }
 
     @Test
@@ -91,7 +91,7 @@ class StringArrayListTest {
         assertEquals(1, arrayList.size());
         assertEquals("Привет", arrayList.get(0));
 
-        assertThrows(com.example.algoritms.exceotion.IndexOutOfBoundsException.class, () -> arrayList.remove(2));
+        assertThrows(com.example.algoritms.exception.IndexOutOfBoundsException.class, () -> arrayList.remove(2));
     }
 
     @Test
@@ -192,7 +192,7 @@ class StringArrayListTest {
 
         assertFalse(arrayList.equals(arrayList3));
 
-        assertThrows(com.example.algoritms.exceotion.IllegalArgumentException.class, () -> arrayList.equals(null));
+        assertThrows(com.example.algoritms.exception.IllegalArgumentException.class, () -> arrayList.equals(null));
     }
 
     @Test
@@ -204,7 +204,7 @@ class StringArrayListTest {
         assertEquals("Привет", arrayList.get(0));
         assertEquals("Мир", arrayList.get(1));
 
-        assertThrows(com.example.algoritms.exceotion.IndexOutOfBoundsException.class, () -> arrayList.get(2));
-        assertThrows(com.example.algoritms.exceotion.IndexOutOfBoundsException.class, () -> arrayList.get(-1));
+        assertThrows(com.example.algoritms.exception.IndexOutOfBoundsException.class, () -> arrayList.get(2));
+        assertThrows(com.example.algoritms.exception.IndexOutOfBoundsException.class, () -> arrayList.get(-1));
     }
 }

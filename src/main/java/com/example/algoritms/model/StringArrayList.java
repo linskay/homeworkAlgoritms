@@ -24,7 +24,7 @@ public class StringArrayList implements StringList {
     @Override
     public String add(int index, String item) {
         if (index < 0 || index > size) {
-            throw new com.example.algoritms.exceotion.IndexOutOfBoundsException("Некорректный параметр");
+            throw new com.example.algoritms.exception.IndexOutOfBoundsException("Некорректный параметр");
         }
         if (size == array.length) {
             array = Arrays.copyOf(array, array.length * 2);
@@ -39,7 +39,7 @@ public class StringArrayList implements StringList {
     @Override
     public String set(int index, String item) {
         if (index < 0 || index >= size) {
-            throw new com.example.algoritms.exceotion.IndexOutOfBoundsException("Некорректный параметр");
+            throw new com.example.algoritms.exception.IndexOutOfBoundsException("Некорректный параметр");
         }
 
         String oldValue = array[index];
@@ -56,13 +56,13 @@ public class StringArrayList implements StringList {
                 return item;
             }
         }
-        throw new com.example.algoritms.exceotion.IndexOutOfBoundsException("Некорректный параметр");
+        throw new com.example.algoritms.exception.IndexOutOfBoundsException("Некорректный параметр");
     }
 
     @Override
     public String remove(int index) {
         if (index < 0 || index >= size) {
-            throw new com.example.algoritms.exceotion.IndexOutOfBoundsException("Некорректный параметр");
+            throw new com.example.algoritms.exception.IndexOutOfBoundsException("Некорректный параметр");
         }
         String removedItem = array[index];
         System.arraycopy(array, index + 1, array, index, size - index - 1);
@@ -103,7 +103,7 @@ public class StringArrayList implements StringList {
     @Override
     public String get(int index) {
         if (index < 0 || index >= size) {
-            throw new com.example.algoritms.exceotion.IndexOutOfBoundsException("Некорректный параметр");
+            throw new com.example.algoritms.exception.IndexOutOfBoundsException("Некорректный параметр");
         }
         return array[index];
     }
@@ -111,7 +111,7 @@ public class StringArrayList implements StringList {
     @Override
     public boolean equals(StringList otherList) {
         if (otherList == null) {
-            throw new com.example.algoritms.exceotion.IllegalArgumentException("Передан null");
+            throw new com.example.algoritms.exception.IllegalArgumentException("Передан null");
         }
         if (this.size != otherList.size()) {
             return false;

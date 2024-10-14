@@ -1,6 +1,7 @@
 package com.example.algoritms.model;
 
 public interface IntegerList {
+
     Integer add(Integer item);
 
     Integer add(int index, Integer item);
@@ -10,8 +11,6 @@ public interface IntegerList {
     Integer remove(Integer item);
 
     Integer remove(int index);
-
-    boolean contains(Integer item);
 
     int indexOf(Integer item);
 

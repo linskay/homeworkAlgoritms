@@ -1,7 +1,6 @@
 package com.example.algoritms.model;
 
 import java.util.Arrays;
-import java.util.Random;
 
 public class IntegerArrayList implements IntegerList {
     private Integer[] array;
@@ -25,7 +24,7 @@ public class IntegerArrayList implements IntegerList {
     @Override
     public Integer add(int index, Integer item) {
         if (index < 0 || index > size) {
-            throw new com.example.algoritms.exceotion.IndexOutOfBoundsException("Некорректный индекс");
+            throw new com.example.algoritms.exception.IndexOutOfBoundsException("Некорректный индекс");
         }
         if (size == array.length) {
             array = Arrays.copyOf(array, array.length * 2);
@@ -39,7 +38,7 @@ public class IntegerArrayList implements IntegerList {
     @Override
     public Integer set(int index, Integer item) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Некорректный индекс");
+            throw new com.example.algoritms.exception.IndexOutOfBoundsException("Некорректный индекс");
         }
         Integer oldValue = array[index];
         array[index] = item;
@@ -61,7 +60,7 @@ public class IntegerArrayList implements IntegerList {
     @Override
     public Integer remove(int index) {
         if (index < 0 || index >= size) {
-            throw new com.example.algoritms.exceotion.IndexOutOfBoundsException("Некорректный индекс");
+            throw new com.example.algoritms.exception.IndexOutOfBoundsException("Некорректный индекс");
         }
         Integer removedItem = array[index];
         System.arraycopy(array, index + 1, array, index, size - index - 1);
@@ -92,17 +91,16 @@ public class IntegerArrayList implements IntegerList {
     @Override
     public Integer get(int index) {
         if (index < 0 || index >= size) {
-            throw new com.example.algoritms.exceotion.IndexOutOfBoundsException("Некорректный индекс");
+            throw new com.example.algoritms.exception.IndexOutOfBoundsException("Некорректный индекс");
         }
         return array[index];
     }
 
     @Override
     public boolean equals(Object other) {
-        if (other == null || !(other instanceof IntegerList)) {
-            throw new com.example.algoritms.exceotion.IllegalArgumentException("Некорректный параметр");
+        if (!(other instanceof IntegerList otherList)) {
+            throw new com.example.algoritms.exception.IllegalArgumentException("Некорректный параметр");
         }
-        IntegerList otherList = (IntegerList) other;
         if (this.size != otherList.size()) {
             return false;
         }
@@ -139,6 +137,10 @@ public class IntegerArrayList implements IntegerList {
         }
     }
 
+    public void sort() {
+        quickSort(array, 0, size - 1);
+    }
+
     private static void quickSort(Integer[] arr, int low, int high) {
         if (low < high) {
             int pi = partition(arr, low, high);
@@ -148,66 +150,22 @@ public class IntegerArrayList implements IntegerList {
     }
 
     private static int partition(Integer[] arr, int low, int high) {
-        Integer pivot = arr[high];
+        int pivot = arr[high];
         int i = (low - 1);
+
         for (int j = low; j <= high - 1; j++) {
             if (arr[j] <= pivot) {
                 i++;
-                Integer temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
+                swap(arr, i, j);
             }
         }
-        Integer temp = arr[i + 1];
-        arr[i + 1] = arr[high];
-        arr[high] = temp;
-        return i + 1;
+        swap(arr, i + 1, high);
+        return (i + 1);
     }
 
-    public void sort() {
-        quickSort(array, 0, size - 1);
-    }
-
-    private int binarySearch(Integer[] arr, int target) {
-        int low = 0;
-        int high = size - 1;
-
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            if (arr[mid] == target) {
-                return mid;
-            } else if (arr[mid] < target) {
-                low = mid + 1;
-            } else {
-                high = mid - 1;
-            }
-        }
-
-        return -1;
-    }
-
-    @Override
-    public boolean contains(Integer item) {
-        sort();
-        return binarySearch(array, item) != -1;
-    }
-
-    public static Integer[] generateRandomArray(int size) {
-        Random random = new Random();
-        Integer[] arr = new Integer[size];
-        for (int i = 0; i < size; i++) {
-            arr[i] = random.nextInt(100000);
-        }
-        return arr;
-    }
-
-    private static void compareSorts(Integer[] arr) {
-        Integer[] arr1 = Arrays.copyOf(arr, arr.length);
-        Integer[] arr2 = Arrays.copyOf(arr, arr.length);
-        Integer[] arr3 = Arrays.copyOf(arr, arr.length);
-
-        long start = System.currentTimeMillis();
-        quickSort(arr1, 0, arr1.length - 1);
-        System.out.println("Быстрая сортировка: " + (System.currentTimeMillis() - start) + " мс");
+    private static void swap(Integer[] arr, int i, int j) {
+        Integer temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
